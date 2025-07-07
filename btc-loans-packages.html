@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC-Backed Loans Consulting Packages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(247, 147, 26, 0.05) 2px,
+                    rgba(247, 147, 26, 0.05) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(247, 147, 26, 0.05) 2px,
+                    rgba(247, 147, 26, 0.05) 4px
+                );
+            background-size: 100% 100%, 50px 50px, 50px 50px;
+        }
+
+        .bg-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .block-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+        }
+
+        .block {
+            position: absolute;
+            border: 1px solid rgba(247, 147, 26, 0.3);
+            background: rgba(247, 147, 26, 0.05);
+            animation: pulse 4s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(247, 147, 26, 0.1);
+        }
+
+        .block:nth-child(1) {
+            width: 60px;
+            height: 40px;
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .block:nth-child(2) {
+            width: 80px;
+            height: 30px;
+            top: 25%;
+            right: 20%;
+            animation-delay: 1s;
+        }
+
+        .block:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            bottom: 30%;
+            left: 10%;
+            animation-delay: 2s;
+        }
+
+        .block:nth-child(4) {
+            width: 70px;
+            height: 35px;
+            bottom: 15%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        .block:nth-child(5) {
+            width: 45px;
+            height: 45px;
+            top: 50%;
+            left: 5%;
+            animation-delay: 1.5s;
+        }
+
+        .block:nth-child(6) {
+            width: 65px;
+            height: 40px;
+            top: 70%;
+            right: 25%;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(0.95);
+                background: rgba(247, 147, 26, 0.03);
+                box-shadow: 0 0 5px rgba(247, 147, 26, 0.1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1);
+                background: rgba(247, 147, 26, 0.08);
+                box-shadow: 0 0 15px rgba(247, 147, 26, 0.2);
+            }
+        }
+
+        .circuit-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.2;
+        }
+
+        .circuit-lines::before,
+        .circuit-lines::after,
+        .circuit-lines .line-h,
+        .circuit-lines .line-v {
+            content: '';
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #f7931a, transparent);
+            animation: circuit 6s infinite linear;
+        }
+
+        .circuit-lines::before {
+            width: 200px;
+            height: 3px;
+            top: 10%;
+            left: -200px;
+            box-shadow: 0 0 5px rgba(247, 147, 26, 0.3);
+            animation: slideHorizontal 8s infinite linear;
+        }
+
+        .circuit-lines::after {
+            width: 3px;
+            height: 200px;
+            top: -200px;
+            left: 70%;
+            animation: slideVertical 6s infinite linear;
+            animation-delay: 2s;
+            box-shadow: 0 0 5px rgba(247, 147, 26, 0.3);
+        }
+
+        .circuit-lines .line-h {
+            width: 150px;
+            height: 3px;
+            bottom: 40%;
+            right: -150px;
+            animation: slideHorizontalReverse 7s infinite linear;
+            animation-delay: 4s;
+            box-shadow: 0 0 5px rgba(247, 147, 26, 0.3);
+        }
+
+        .circuit-lines .line-v {
+            width: 3px;
+            height: 150px;
+            bottom: -150px;
+            left: 35%;
+            animation: slideVerticalReverse 9s infinite linear;
+            animation-delay: 3s;
+            box-shadow: 0 0 5px rgba(247, 147, 26, 0.3);
+        }
+
+        @keyframes slideHorizontal {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(100vw + 200px));
+            }
+        }
+
+        @keyframes slideHorizontalReverse {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(calc(-100vw - 150px));
+            }
+        }
+
+        @keyframes slideVertical {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(calc(100vh + 200px));
+            }
+        }
+
+        @keyframes slideVerticalReverse {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(calc(-100vh - 150px));
+            }
+        }
+
+        @keyframes circuit {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(200%);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1800px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 0 2rem;
+        }
+
+        .logo-left img {
+            height: 50px;
+            opacity: 0.9;
+        }
+
+        .logo-right {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .logo-right img {
+            height: 40px;
+        }
+
+        .bitcoin-logo {
+            width: 40px;
+            height: 40px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .bitcoin-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #f7931a 0%, #ffb84d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 4rem;
+        }
+
+        .packages {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            align-items: center;
+        }
+
+        .package {
+            flex: 0 0 minmax(380px, 1fr);
+            width: 380px;
+        }
+
+        .video-cutout {
+            flex: 0 0 380px;
+            display: none;
+        }
+        
+        .video-cutout.active {
+            display: flex;
+        }
+        
+        .package.mini { order: 1; }
+        .package.medi { order: 3; }
+        .package.maxi { order: 5; }
+        
+        .video-cutout { order: 2; }
+        
+        .packages.medi-revealed .package.medi { order: 2; }
+        .packages.medi-revealed .video-cutout { order: 3; }
+        .packages.medi-revealed .package.maxi { order: 4; }
+        
+        .packages.maxi-revealed .package.mini { order: 1; }
+        .packages.maxi-revealed .package.medi { order: 2; }
+        .packages.maxi-revealed .package.maxi { order: 3; }
+        .packages.maxi-revealed .video-cutout { order: 4; }
+
+        .video-cutout {
+            border: 3px dashed rgba(247, 147, 26, 0.4);
+            border-radius: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            transition: all 0.5s ease;
+            min-height: 500px;
+            height: 80%;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .video-cutout.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .video-cutout::before {
+            content: "Your Video Here";
+        }
+
+        .package {
+            background: rgba(25, 25, 30, 0.8);
+            border: 2px solid transparent;
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            position: relative;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            backdrop-filter: blur(20px);
+            box-shadow: 
+                0 0 40px rgba(0,0,0,0.5),
+                inset 0 0 20px rgba(255,255,255,0.02);
+            min-height: 600px;
+        }
+
+        .package:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 20px 60px rgba(255, 255, 255, 0.1),
+                inset 0 0 60px rgba(255, 255, 255, 0.02);
+        }
+
+        .package-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .package-name {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 0;
+            color: #f7931a;
+            font-size: 1.1rem;
+        }
+
+        .timeline svg {
+            width: 20px;
+            height: 20px;
+            fill: #4ade80;
+        }
+
+        .package-bottom {
+            margin-top: auto;
+            border-top: 2px solid rgba(255,255,255,0.15);
+            padding-top: 1.5rem;
+            background: rgba(0,0,0,0.2);
+            margin: auto -2.5rem -3rem -2.5rem;
+            padding: 1.5rem 2.5rem 2rem;
+            border-radius: 0 0 24px 24px;
+        }
+
+        .package-price {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .btc-price {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: #f7931a;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btc-price img {
+            height: 40px;
+            width: 40px;
+        }
+        
+        .usd-price {
+            font-size: 1rem;
+            color: #888;
+            opacity: 0.7;
+        }
+
+        .usd-price .currency {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .package-features {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .package-features li {
+            padding: 1.2rem 1rem 1.2rem 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-left: 2px solid transparent;
+            border-right: 2px solid transparent;
+            border-top: 2px solid transparent;
+            display: flex;
+            align-items: flex-start;
+            position: relative;
+            margin: 0 -1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .package-features li:hover {
+            border-color: rgba(247, 147, 26, 0.5);
+            box-shadow: 
+                0 8px 25px rgba(247, 147, 26, 0.3),
+                0 0 40px rgba(247, 147, 26, 0.15);
+            z-index: 10;
+            background: rgba(247, 147, 26, 0.05);
+        }
+
+        .package-features li:hover .feature-text {
+            color: rgba(255,255,255,0.95);
+            transform: scale(1.05);
+            display: inline-block;
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .package-features li:before {
+            content: "";
+            position: absolute;
+            left: 0.8rem;
+            top: 1.2rem;
+            width: 16px;
+            height: 16px;
+            background: url('image-removebg-preview.png') no-repeat center;
+            background-size: contain;
+            transition: all 0.3s ease;
+        }
+
+        .package-features li:hover:before {
+            width: 18px;
+            height: 18px;
+            left: 0.7rem;
+            top: 1.1rem;
+        }
+
+        .feature-text {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .mini { 
+            border: 2px solid rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, rgba(30, 30, 35, 0.95) 0%, rgba(45, 45, 55, 0.9) 100%);
+            position: relative;
+        }
+        
+        .mini::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(100, 100, 255, 0.3), rgba(150, 100, 255, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .medi { 
+            border: 2px solid rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, rgba(35, 30, 35, 0.95) 0%, rgba(55, 45, 50, 0.9) 100%);
+            position: relative;
+        }
+        
+        .medi::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255, 100, 150, 0.3), rgba(255, 150, 100, 0.1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .maxi { 
+            border: 2px solid rgba(247, 147, 26, 0.3);
+            background: linear-gradient(135deg, rgba(40, 35, 30, 0.95) 0%, rgba(55, 50, 45, 0.9) 100%);
+            box-shadow: 0 0 40px rgba(247, 147, 26, 0.15);
+            position: relative;
+        }
+        
+        .maxi::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(247, 147, 26, 0.5), rgba(255, 200, 50, 0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .trust-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #4ade80;
+            color: #0a0a0a;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 1024px) {
+            .packages {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto 3rem;
+            }
+        }
+        .package.locked {
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .package.locked .package-features,
+        .package.locked .timeline,
+        .package.locked .package-price {
+            filter: blur(8px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .package.locked::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: url('image-removebg-preview.png') no-repeat center;
+            background-size: contain;
+            border: 3px solid #f7931a;
+            border-radius: 50%;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .package.locked:hover::after {
+            background-color: rgba(247, 147, 26, 0.2);
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 40px rgba(247, 147, 26, 0.5);
+            border-color: #f7931a;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-lines">
+        <div class="block-grid">
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+        </div>
+        <div class="circuit-lines">
+            <span class="line-h"></span>
+            <span class="line-v"></span>
+        </div>
+    </div>
+    <div class="container">
+        <div class="logo-header">
+            <div class="logo-left">
+                <img src="https://d1yei2z3i6k35z.cloudfront.net/4108112/647ddffd10904_AppifySheets_Leaves.png" alt="AppifySheets">
+            </div>
+            <div class="logo-right">
+                <img src="https://eurocredit.ge/images/shared/logo.png" alt="EuroCredit">
+                <div class="bitcoin-logo">
+                    <img src="image-removebg-preview.png" alt="Bitcoin">
+                </div>
+            </div>
+        </div>
+        <h1>Auto-loans to <img src="image-removebg-preview.png" alt="B" style="height: 5rem; vertical-align: middle; margin-right: 1.3rem; margin-left: 0.2rem; position: relative; top: -0.4rem;">Backed Loans</h1>
+        <p class="subtitle">Becoming an International Bitcoin <span style="color: rgba(247, 147, 26, 0.6);">Ledning</span> Provider</p>
+        
+        <div class="packages">
+            <div class="package mini locked" onclick="this.classList.remove('locked'); var vc = document.querySelector('.video-cutout'); vc.classList.add('active'); var p = document.querySelector('.packages'); p.classList.remove('medi-revealed', 'maxi-revealed');">
+                <div class="package-header">
+                    <div class="package-name">Mini</div>
+                </div>
+                <ul class="package-features">
+                    <li>
+                        <span class="feature-text"><span class="highlight">Market research</span> on BTC lending landscape</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Study of <span class="highlight">3 lending providers</span> (Ledn, BlockFi, Nexo)</span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Georgian law compatibility</span> check</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Regulatory framework notes</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Implementation roadmap</span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Written report</span> with detailed analysis</span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Video presentation</span> of findings</span>
+                    </li>
+                </ul>
+                <div class="package-bottom">
+                    <div class="timeline">
+                        <span>⏱️ 2 weeks</span>
+                    </div>
+                    <div class="package-price">
+                        <div class="btc-price">
+                            <img src="image-removebg-preview.png" alt="₿">
+                            <span>0.031</span>
+                        </div>
+                        <div class="usd-price">
+                            <span class="currency">$</span>3,000
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package medi locked" onclick="this.classList.remove('locked'); var p = document.querySelector('.packages'); p.classList.add('medi-revealed'); p.classList.remove('maxi-revealed');">
+                <div class="package-header">
+                    <div class="package-name">Medi</div>
+                </div>
+                <ul class="package-features">
+                    <li>
+                        <span class="feature-text"><span class="highlight">Everything in Mini</span></span>
+                    </li>
+                    <li>
+                        <span class="feature-text">First-hand experience as <span class="highlight">Ledn.io client</span></span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Technical <span class="highlight">PoC development</span> with custodian integration</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Integration setup with <span class="highlight">Binance or Coinbase</span></span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Working prototype demonstration</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Technical architecture documentation</span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Written report</span> with PoC documentation</span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Video walkthrough</span> of implementation</span>
+                    </li>
+                </ul>
+                <div class="package-bottom">
+                    <div class="timeline">
+                        <span>⏱️ 1 month</span>
+                    </div>
+                    <div class="package-price">
+                        <div class="btc-price">
+                            <img src="image-removebg-preview.png" alt="₿">
+                            <span>0.072</span>
+                        </div>
+                        <div class="usd-price">
+                            <span class="currency">$</span>7,000
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package maxi locked" onclick="this.classList.remove('locked'); var p = document.querySelector('.packages'); p.classList.add('maxi-revealed'); p.classList.remove('medi-revealed');">
+                <div class="package-header">
+                    <div class="package-name">Maxi</div>
+                </div>
+                <ul class="package-features">
+                    <li>
+                        <span class="feature-text"><span class="highlight">Everything in Mini & Medi</span> packages</span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Trust solution</span> for Bitcoin holder concerns</span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Multi-signature custody</span> design</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Independent <span class="highlight">third-party key holder</span> framework</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Analysis of current provider limitations</span>
+                    </li>
+                    <li>
+                        <span class="feature-text">Implementation strategy with <span class="highlight">trust-first approach</span></span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Comprehensive written report</span></span>
+                    </li>
+                    <li>
+                        <span class="feature-text"><span class="highlight">Executive video presentation</span></span>
+                    </li>
+                </ul>
+                <div class="package-bottom">
+                    <div class="timeline">
+                        <span>⏱️ 2 months</span>
+                    </div>
+                    <div class="package-price">
+                        <div class="btc-price">
+                            <img src="image-removebg-preview.png" alt="₿">
+                            <span>0.124</span>
+                        </div>
+                        <div class="usd-price">
+                            <span class="currency">$</span>12,000
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="video-cutout"></div>
+        </div>
+    </div>
+</body>
+</html>
