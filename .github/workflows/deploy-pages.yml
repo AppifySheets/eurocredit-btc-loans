@@ -17,6 +17,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -35,12 +36,8 @@ jobs:
         
       # Setup Pages configuration
       # This step configures GitHub Pages settings
-      # Note: GitHub Pages must be enabled in repository settings first!
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          # Attempt to enable Pages if not already enabled
-          enablement: true
         
       # Upload the entire repository as the artifact
       # Since we have a simple static site, we'll upload the whole directory
