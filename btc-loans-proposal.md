@@ -58,6 +58,8 @@ This document outlines a framework for implementing Bitcoin-backed lending servi
 
 ### 1.3 Application to Disbursement Flow
 
+**Process Description:** The customer submits a loan application to EuroCredit, who conducts KYC/AML verification. After the customer provides required documents, EuroCredit performs risk assessment and sends loan approval with terms. The customer signs the agreement and transfers BTC collateral to Coinbase. Once Coinbase confirms receipt, EuroCredit initiates fiat transfer through the bank, and the customer receives the loan funds.
+
 ```mermaid
 sequenceDiagram
     participant Customer
@@ -66,14 +68,14 @@ sequenceDiagram
     participant Bank
     
     Customer->>EuroCredit: Submit loan application
-    MFO->>Customer: KYC/AML verification
+    EuroCredit->>Customer: KYC/AML verification
     Customer->>EuroCredit: Provide documents
-    MFO->>MFO: Risk assessment
-    MFO->>Customer: Loan approval & terms
+    EuroCredit->>EuroCredit: Risk assessment
+    EuroCredit->>Customer: Loan approval & terms
     Customer->>Customer: Sign loan agreement
     Customer->>Coinbase: Transfer BTC collateral
-    Coinbase->>MFO: Confirm collateral receipt
-    MFO->>Bank: Initiate fiat transfer
+    Coinbase->>EuroCredit: Confirm collateral receipt
+    EuroCredit->>Bank: Initiate fiat transfer
     Bank->>Customer: Receive loan funds
 ```
 
@@ -90,6 +92,8 @@ sequenceDiagram
 | **Premium** | 80% | 12% APR | 87% | 92% |
 
 ### 2.2 Margin Call & Liquidation Process
+
+**Process Overview:** The system continuously monitors Bitcoin prices and checks LTV ratios. When LTV exceeds warning thresholds, customers are notified and given time to add collateral or make partial repayments. If no action is taken within 48 hours and LTV reaches critical levels, liquidation is initiated. The system sells the necessary BTC amount, repays the loan, and returns any excess to the customer.
 
 ```mermaid
 graph TD
@@ -159,6 +163,8 @@ If BTC drops to $41,176 (17.6% decrease):
 
 ### 3.1 System Components
 
+**Architecture Overview:** The system consists of four main layers. The Customer Layer includes web portal, mobile app, and branch terminals. The EuroCredit Core System contains loan management, risk engine, price oracle, and notification services. External Services integrate with Coinbase Custody, price feeds, banking APIs, and SMS gateways. The Security Layer implements multi-signature wallets, HSM key storage, and comprehensive audit logging.
+
 ```mermaid
 graph TB
     subgraph Customer Layer
@@ -167,7 +173,7 @@ graph TB
         C[Branch Terminal]
     end
     
-    subgraph MFO Core System
+    subgraph EuroCredit Core System
         D[Loan Management System]
         E[Risk Engine]
         F[Price Oracle]
@@ -262,6 +268,8 @@ graph TB
 
 ### 4.2 Margin Call Procedure
 
+**Workflow Description:** The system continuously monitors LTV ratios. When thresholds are exceeded, it triggers warnings and notifies customers with a 72-hour response window. Customers can resolve the issue by adding collateral or repaying the loan. If no response is received, the system escalates through critical warnings (48 hours) and final notices (24 hours) before initiating liquidation and settlement procedures.
+
 ```mermaid
 stateDiagram-v2
     [*] --> Monitoring
@@ -316,6 +324,8 @@ stateDiagram-v2
 
 ### 5.2 AML/KYC Compliance
 
+**Compliance Flow:** Customer applications undergo risk assessment based on BTC amount. Low-risk customers (<0.5 BTC) receive standard KYC, medium-risk (0.5-2 BTC) require enhanced due diligence, and high-risk (>2 BTC) need additional source of funds verification. All customers are subject to ongoing monitoring, with suspicious activities reported to FMS and regular reviews for compliant accounts.
+
 ```mermaid
 graph TD
     A[Customer Application] --> B{Risk Assessment}
@@ -365,6 +375,8 @@ graph TD
 4. **Custodian Insurance**: Via Coinbase ($320M coverage)
 
 ### 6.3 Business Continuity Plan
+
+**Continuity Strategy:** In case of primary system failure, backup systems activate immediately with customer notifications and manual processing capability, ensuring recovery within 4 hours. For custodian failures, new loans are frozen while backup custodian activation begins, with full transfer process completing within 48-72 hours.
 
 ```mermaid
 graph LR
