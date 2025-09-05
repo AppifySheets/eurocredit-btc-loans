@@ -31,7 +31,7 @@ This document outlines a framework for implementing Bitcoin-backed lending servi
 ### 1.2 Detailed Customer Journey Steps
 
 #### Step 1: Initial Contact
-- **Channels**: Website, mobile app, branch visit
+- **Channels**: Website, branch visit
 - **Information Provided**: 
   - Bitcoin lending basics
   - LTV ratios available
@@ -163,13 +163,12 @@ If BTC drops to $41,176 (17.6% decrease):
 
 ### 3.1 System Components
 
-**Architecture Overview:** The system consists of four main layers. The Customer Layer includes web portal, mobile app, and branch terminals. The EuroCredit Core System leverages Alta Software (already NBG-approved for EuroCredit's auto loans) as the loan management system, integrated with risk engine, price oracle, and notification services. External Services integrate with Coinbase Custody, price feeds, banking APIs, and SMS gateways. The Security Layer implements multi-signature wallets, HSM key storage, and comprehensive audit logging.
+**Architecture Overview:** The system consists of four main layers. The Customer Layer includes web portal and branch terminals. The EuroCredit Core System leverages Alta Software (already NBG-approved for EuroCredit's auto loans) as the loan management system, integrated with risk engine, price oracle, and notification services. External Services integrate with Coinbase Custody, price feeds, banking APIs, and SMS gateways. The Security Layer implements multi-signature wallets, HSM key storage, and comprehensive audit logging.
 
 ```mermaid
 graph TB
     subgraph Customer Layer
         A[Web Portal]
-        B[Mobile App]
         C[Branch Terminal]
     end
     
@@ -194,7 +193,6 @@ graph TB
     end
     
     A --> D
-    B --> D
     C --> D
     D <--> E
     E <--> F
@@ -652,7 +650,7 @@ Customers can repay their Bitcoin-backed loans early at any time without penalti
 #### Step-by-Step Process
 
 1. **Repayment Initiation**
-   - Customer logs into portal/app or visits branch
+   - Customer logs into portal or visits branch
    - Requests early repayment quote
    - System calculates total amount due:
      - Outstanding principal
