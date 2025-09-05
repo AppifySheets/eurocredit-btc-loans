@@ -163,7 +163,7 @@ If BTC drops to $41,176 (17.6% decrease):
 
 ### 3.1 System Components
 
-**Architecture Overview:** The system consists of four main layers. The Customer Layer includes web portal, mobile app, and branch terminals. The EuroCredit Core System contains loan management, risk engine, price oracle, and notification services. External Services integrate with Coinbase Custody, price feeds, banking APIs, and SMS gateways. The Security Layer implements multi-signature wallets, HSM key storage, and comprehensive audit logging.
+**Architecture Overview:** The system consists of four main layers. The Customer Layer includes web portal, mobile app, and branch terminals. The EuroCredit Core System leverages Alta Software (already NBG-approved for EuroCredit's auto loans) as the loan management system, integrated with risk engine, price oracle, and notification services. External Services integrate with Coinbase Custody, price feeds, banking APIs, and SMS gateways. The Security Layer implements multi-signature wallets, HSM key storage, and comprehensive audit logging.
 
 ```mermaid
 graph TB
@@ -174,7 +174,7 @@ graph TB
     end
     
     subgraph EuroCredit Core System
-        D[Loan Management System]
+        D[Alta Software LMS<br/>NBG-Approved]
         E[Risk Engine]
         F[Price Oracle]
         G[Notification Service]
@@ -208,7 +208,29 @@ graph TB
     D --> N
 ```
 
-### 3.2 Coinbase Custody Integration
+### 3.2 Alta Software Integration
+
+**Leveraging Existing NBG-Approved Infrastructure**
+
+EuroCredit will extend its existing Alta Software loan management system, which is already approved by the National Bank of Georgia for auto loan tracking, to handle Bitcoin-backed loans. This approach provides:
+
+1. **Regulatory Advantage**
+   - Pre-existing NBG approval and compliance
+   - Established reporting mechanisms
+   - Proven audit trail capabilities
+
+2. **System Adaptations for BTC Loans**
+   - Custom collateral type: "Bitcoin (BTC)"
+   - Real-time LTV calculation module
+   - Automated margin call workflows
+   - Integration APIs for crypto price feeds
+
+3. **Compliance Features**
+   - Automated NBG reporting in existing formats
+   - KYC/AML procedures already integrated
+   - Risk assessment frameworks in place
+
+### 3.3 Coinbase Custody Integration
 
 #### API Integration Points
 1. **Account Creation**
@@ -229,7 +251,7 @@ graph TB
    - Withdrawal whitelisting
    - Time-delayed withdrawals
 
-### 3.3 Price Oracle Architecture
+### 3.4 Price Oracle Architecture
 
 **Price Feed Processing:**
 • **Data Sources:**
@@ -306,7 +328,7 @@ stateDiagram-v2
 #### Licensing & Registration
 - MFO license modification for crypto-collateralized lending
 - Custody partner registration
-- Quarterly reporting obligations
+- Quarterly reporting obligations via Alta Software (existing NBG-approved reporting channel)
 
 #### Consumer Protection Measures
 1. **Clear Risk Disclosure**
