@@ -6,18 +6,13 @@
 
 ## Executive Summary
 
-This document outlines a comprehensive framework for implementing Bitcoin-backed lending services by MFO EuroCredit, utilizing third-party custodians like Coinbase Custody for secure collateral management.
-
-### Key Value Propositions
-- **For Customers**: Access to liquidity without selling Bitcoin holdings
-- **For MFO EuroCredit**: New revenue stream with secured, over-collateralized loans
-- **For NBG**: Regulated, transparent crypto-lending framework aligned with international standards
+This document outlines a framework for implementing Bitcoin-backed lending services by MFO EuroCredit, utilizing third-party custodians like Coinbase Custody for secure collateral management.
 
 ### Core Components
 1. **Third-Party Custody**: Coinbase or similar institutional-grade custodian
 2. **Risk Management**: Automated margin calls and liquidation protocols
-3. **Regulatory Compliance**: Full KYC/AML adherence and NBG reporting
-4. **Consumer Protection**: Multi-signature security and insurance coverage
+3. **Regulatory Compliance**: KYC/AML adherence and NBG reporting
+4. **Consumer Protection**: Multi-signature security and insurance coverage (optional)
 
 ---
 
@@ -25,14 +20,13 @@ This document outlines a comprehensive framework for implementing Bitcoin-backed
 
 ### 1.1 Initial Customer Engagement
 
-```mermaid
-graph LR
-    A[Customer Interest] --> B[Initial Consultation]
-    B --> C[Eligibility Check]
-    C --> D[Product Education]
-    D --> E[Application Decision]
-    E --> F[KYC Process]
-```
+**Process Flow:**
+• Customer Interest
+• Initial Consultation
+• Eligibility Check
+• Product Education
+• Application Decision
+• KYC Process
 
 ### 1.2 Detailed Customer Journey Steps
 
@@ -72,14 +66,14 @@ sequenceDiagram
     participant Bank
     
     Customer->>EuroCredit: Submit loan application
-    EuroCredit->>Customer: KYC/AML verification
+    MFO->>Customer: KYC/AML verification
     Customer->>EuroCredit: Provide documents
-    EuroCredit->>EuroCredit: Risk assessment
-    EuroCredit->>Customer: Loan approval & terms
+    MFO->>MFO: Risk assessment
+    MFO->>Customer: Loan approval & terms
     Customer->>Customer: Sign loan agreement
     Customer->>Coinbase: Transfer BTC collateral
-    Coinbase->>EuroCredit: Confirm collateral receipt
-    EuroCredit->>Bank: Initiate fiat transfer
+    Coinbase->>MFO: Confirm collateral receipt
+    MFO->>Bank: Initiate fiat transfer
     Bank->>Customer: Receive loan funds
 ```
 
@@ -154,7 +148,7 @@ Price Drop Scenario:
 ```
 If BTC drops to $41,176 (17.6% decrease):
 - LTV reaches 85% (Liquidation trigger)
-- EuroCredit sells 0.15 BTC to restore LTV to 70%
+- MFO sells 0.15 BTC to restore LTV to 70%
 - Customer retains 0.85 BTC in custody
 - Loan amount reduced accordingly
 ```
@@ -173,7 +167,7 @@ graph TB
         C[Branch Terminal]
     end
     
-    subgraph EuroCredit Core System
+    subgraph MFO Core System
         D[Loan Management System]
         E[Risk Engine]
         F[Price Oracle]
@@ -224,24 +218,23 @@ graph TB
 3. **Security Features**
    - Multi-signature setup (2-of-3)
      - Key 1: Customer
-     - Key 2: EuroCredit
+     - Key 2: MFO
      - Key 3: Coinbase (neutral arbiter)
    - Withdrawal whitelisting
    - Time-delayed withdrawals
 
 ### 3.3 Price Oracle Architecture
 
-```mermaid
-graph LR
-    A[Primary: Coinbase Pro] --> D[Aggregator]
-    B[Secondary: Binance] --> D
-    C[Tertiary: CoinGecko] --> D
-    D --> E[Median Price]
-    E --> F[Risk Engine]
-    F --> G{Deviation Check}
-    G -->|>2% deviation| H[Alert & Manual Review]
-    G -->|<2% deviation| I[Use Price]
-```
+**Price Feed Processing:**
+• **Data Sources:**
+  - Primary: Coinbase Pro
+  - Secondary: Binance
+  - Tertiary: CoinGecko
+• **Aggregation:** Calculate median price from all feeds
+• **Validation:** Feed to Risk Engine
+• **Deviation Check:**
+  - If >2% deviation → Alert & Manual Review
+  - If <2% deviation → Use Price for calculations
 
 ---
 
@@ -319,7 +312,7 @@ stateDiagram-v2
 
 3. **Maximum Exposure Limits**
    - Single borrower: Max 5 BTC collateral
-   - Portfolio limit: 20% of EuroCredit's loan book
+   - Portfolio limit: 20% of MFO's loan book
 
 ### 5.2 AML/KYC Compliance
 
@@ -544,7 +537,7 @@ Break-even calculation:
 BITCOIN-BACKED LOAN AGREEMENT
 
 This Agreement is entered into on [DATE] between:
-- Lender: MFO EuroCredit, registered in Georgia
+- Lender: [MFO Name], registered in Georgia
 - Borrower: [Customer Name], ID: [Number]
 
 TERMS:
@@ -620,9 +613,9 @@ Signature: _________________ Date: _________________
 ## Contact Information
 
 **For National Bank of Georgia:**
-- Regulatory Affairs: compliance@eurocredit.ge
-- Technical Documentation: tech@eurocredit.ge
-- Risk Management: risk@eurocredit.ge
+- Regulatory Affairs: compliance@mfo-btc.ge
+- Technical Documentation: tech@mfo-btc.ge
+- Risk Management: risk@mfo-btc.ge
 
 **For Implementation Partners:**
 - Coinbase Institutional: [Contact Details]
