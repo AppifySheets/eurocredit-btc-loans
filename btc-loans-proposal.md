@@ -620,19 +620,80 @@ Signature: _________________ Date: _________________
 }
 ```
 
----
+### Appendix D: Early Repayment Process
 
-## Contact Information
+**Customer-Initiated Early Repayment**
 
-**For National Bank of Georgia:**
-- Regulatory Affairs: compliance@mfo-btc.ge
-- Technical Documentation: tech@mfo-btc.ge
-- Risk Management: risk@mfo-btc.ge
+#### Process Overview
+Customers can repay their Bitcoin-backed loans early at any time without penalties. The process ensures immediate collateral release and proper settlement of all obligations.
 
-**For Implementation Partners:**
-- Coinbase Institutional: [Contact Details]
-- Technology Team: [Contact Details]
-- Legal Advisors: [Contact Details]
+#### Step-by-Step Process
+
+1. **Repayment Initiation**
+   - Customer logs into portal/app or visits branch
+   - Requests early repayment quote
+   - System calculates total amount due:
+     - Outstanding principal
+     - Accrued interest (pro-rated to current date)
+     - No prepayment penalties
+
+2. **Payment Execution**
+   - Customer transfers funds via:
+     - Bank transfer
+     - Cash deposit at branch
+     - Wire transfer for large amounts
+   - System confirms payment receipt
+
+3. **Collateral Release Process**
+   ```
+   Timeline: 2-4 hours after payment confirmation
+   
+   Step 1: Payment Verification (15 minutes)
+   - Confirm full amount received
+   - Update loan status to "Paid in Full"
+   
+   Step 2: Collateral Calculation (5 minutes)
+   - Calculate exact BTC amount to release
+   - Account for any partial liquidations
+   - Generate release authorization
+   
+   Step 3: Multi-Signature Authorization (1-2 hours)
+   - EuroCredit signs release transaction
+   - Customer receives notification to co-sign
+   - Transaction broadcast to Bitcoin network
+   
+   Step 4: Confirmation (1-2 hours)
+   - Wait for 3 blockchain confirmations
+   - Send final settlement statement
+   - Archive loan documentation
+   ```
+
+4. **Settlement Documentation**
+   - Final statement showing:
+     - Total amount paid
+     - Interest saved through early repayment
+     - BTC returned to customer wallet
+     - Transaction IDs for audit trail
+
+#### Benefits of Early Repayment
+- **No penalties**: Full flexibility to repay anytime
+- **Interest savings**: Pay only for days used
+- **Immediate collateral access**: BTC released within hours
+- **Credit score improvement**: Positive reporting to credit bureaus
+
+#### Example Calculation
+```
+Original Loan: $35,000
+Term: 12 months at 10% APR
+Repayment after 3 months:
+
+Principal: $35,000
+Interest (3 months): $875
+Total Due: $35,875
+
+Interest Saved: $2,625
+BTC Released: Full collateral minus any liquidations
+```
 
 ---
 
